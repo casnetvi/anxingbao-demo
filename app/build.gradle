@@ -9,10 +9,36 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //axb sdk need  :steps3
+        multiDexEnabled true
     }
+
+    //axb sdk need  :steps4
+    dataBinding {
+        enabled true
+    }
+
+    signingConfigs {
+        config_release {
+            keyAlias 'test'
+            keyPassword 'test123'
+            storePassword 'test123'
+            storeFile file('test.jks')
+        }
+
+        config_debug {
+            keyAlias 'test'
+            keyPassword 'test123'
+            storePassword 'test123'
+            storeFile file('test.jks')
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            signingConfig signingConfigs.config_release
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -25,4 +51,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    //axb sdk need  :steps2
+    implementation 'com.github.wzxwater:anxingbao:0.0.1'
 }
