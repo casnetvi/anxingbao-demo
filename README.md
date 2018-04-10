@@ -3,7 +3,6 @@
 ```
 allprojects {
     repositories {
-        //axb sdk need  :steps1
         maven { url 'https://jitpack.io' }
     }
 }
@@ -11,31 +10,23 @@ allprojects {
 
 ##### 2：在App Module中的 build.gradle 添加
 ```
-dependencies {
-    //axb sdk need  :steps2
-    implementation 'com.github.casnetvi:anxingbao:0.1.0'
-}
-```
 
-##### 3：在App Module中的 build.gradle 添加
-```
-defaultConfig {
-    //axb sdk need  :steps3
-    multiDexEnabled true
-}
-```
-
-##### 4：在App Module中的 build.gradle 添加
-```
 android {
-    //axb sdk need  :steps4
+    defaultConfig {
+        multiDexEnabled true
+    }
+
     dataBinding {
         enabled true
     }
 }
+
+dependencies {
+    implementation 'com.github.casnetvi:anxingbao:0.1.0'
+}
 ```
 
-##### 5：创建AppImpl，继承自App，指定到manifest中。
+##### 3：创建AppImpl，继承自App，指定到manifest中。
 ```
 public class AppImpl extends AXBApp {
 }
@@ -54,7 +45,16 @@ public class AppImpl extends AXBApp {
 ---
 
 ## 使用
-##### 1.登录
+##### 1.监听登录凭证是否过期
+```
+AXBSDK.getInstance().setCallback(new AXBSDK.Callback() {
+    @Override
+    public void onTokenException() {
+        System.out.println("登录凭证过期，请重新登录");
+    }
+});
+```
+##### 2.登录
 ```
 AXBSDK.getInstance()
         .login(username, password)
@@ -75,8 +75,11 @@ AXBSDK.getInstance()
             }
         });
 ```
-
-##### 2.获取已登录用户
+##### 3.退出登录
+```
+AXBSDK.getInstance().logout(this);
+```
+##### 4.获取已登录用户
 ```
 AXBSDK.getInstance()
         .getCurrUser()
@@ -96,11 +99,7 @@ AXBSDK.getInstance()
             }
         });
 ```
-##### 3.退出登录
-```
-AXBSDK.getInstance().logout(this);
-```
-##### 4.嵌套安行宝列表
+##### 5.嵌套安行宝列表
 ```
 //须继承自 RxAppCompatActivity
 public class MainActivity extends RxAppCompatActivity {
@@ -113,11 +112,7 @@ public class MainActivity extends RxAppCompatActivity {
     }
 }
 ```
-##### 5.进入绑定安行宝界面
+##### 6.跳转进入绑定安行宝界面（扫描二维码）
 ```
 AXBSDK.getInstance().goToBindDeviceActivity(this);
 ```
-
-
-
-
