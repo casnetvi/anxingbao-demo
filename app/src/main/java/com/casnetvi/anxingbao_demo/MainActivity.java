@@ -1,16 +1,11 @@
 package com.casnetvi.anxingbao_demo;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.casnetvi.app.frg.AXBFragment;
-import com.casnetvi.app.presenter.base.v2.BackV2Activity;
-import com.casnetvi.app.presenter.base.v2.BaseV2Activity;
-import com.casnetvi.app.presenter.login.vm.LoginV2Activity;
 import com.casnetvi.app.sdk.AXBSDK;
-import com.casnetvi.app.utils.QRCodeHelper;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 public class MainActivity extends RxAppCompatActivity {
@@ -46,9 +41,7 @@ public class MainActivity extends RxAppCompatActivity {
 
 
     private void goToBind(){
-//        AXBSDK.getInstance().goToBindDeviceActivity(this);
-//        startActivity(new Intent(this, QRC.class));
-        QRCodeHelper.showQRCodeActivity(this);
+        AXBSDK.getInstance().goToBindDeviceActivity(this);
     }
 
 }

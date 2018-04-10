@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="cn.qqtheme.framework:Common-1.5.5">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Common-1.5.5.aar/5204e837c0f73e438717f4020c9f298c/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Common-1.5.5.aar/5204e837c0f73e438717f4020c9f298c/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cn.qqtheme.framework/Common/1.5.5/639faec4e5b0d861b79a74128fa2223fcf958a08/Common-1.5.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

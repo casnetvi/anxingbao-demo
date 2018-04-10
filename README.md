@@ -13,7 +13,7 @@ allprojects {
 ```
 dependencies {
     //axb sdk need  :steps2
-    implementation 'com.github.wzxwater:anxingbao:0.0.1'
+    implementation 'com.github.casnetvi:anxingbao:0.1.0'
 }
 ```
 
@@ -37,7 +37,7 @@ android {
 
 ##### 5：创建AppImpl，继承自App，指定到manifest中。
 ```
-public class AppImpl extends App {
+public class AppImpl extends AXBApp {
 }
 ```
 
@@ -115,7 +115,7 @@ public class MainActivity extends RxAppCompatActivity {
 ```
 ##### 5.进入绑定安行宝界面
 ```
-QRCodeHelper.showQRCodeActivity(this);
+AXBSDK.getInstance().goToBindDeviceActivity(this);
 ```
 
 

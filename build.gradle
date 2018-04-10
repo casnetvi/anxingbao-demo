@@ -16,6 +16,10 @@ allprojects {
 
         //axb sdk need  :steps1
         maven { url 'https://jitpack.io' }
+
+//        maven() {
+//            url uri('../repo')
+//        }
     }
 }
 
