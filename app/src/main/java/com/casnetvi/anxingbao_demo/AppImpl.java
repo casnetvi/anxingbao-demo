@@ -1,16 +1,19 @@
 package com.casnetvi.anxingbao_demo;
 
-import com.casnetvi.app.sdk.AXBApp;
+import android.app.Application;
+
 import com.casnetvi.app.sdk.AXBSDK;
 
 /**
  * Created by wzx on 18/4/4.
  */
 
-public class AppImpl extends AXBApp {
+public class AppImpl extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        AXBSDK.getInstance().init(this, "your_api_key");
 
         //监听登录凭证是否过期
         AXBSDK.getInstance().setCallback(new AXBSDK.Callback() {

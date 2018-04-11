@@ -10,40 +10,25 @@ allprojects {
 
 ##### 2：在App Module中的 build.gradle 添加
 ```
-
 android {
     defaultConfig {
         multiDexEnabled true
     }
-
     dataBinding {
         enabled true
     }
 }
 
 dependencies {
-    implementation 'com.github.casnetvi:anxingbao:0.1.0'
+    implementation 'com.github.casnetvi:anxingbao:0.1.1'
 }
 ```
-
-##### 3：创建AppImpl，继承自App，指定到manifest中。
-```
-public class AppImpl extends AXBApp {
-}
-```
-
-```
-<manifest>
-    <application
-        android:name=".AppImpl">
-    </application>
-</manifest>
-```
-
-
-#####  完成以上步骤则配置完成。
 ---
-
+## 初始化
+```
+AXBSDK.getInstance().init(this, "your_api_key");
+```
+---
 ## 使用
 ##### 1.监听登录凭证是否过期
 ```
@@ -60,18 +45,18 @@ AXBSDK.getInstance()
         .login(username, password)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .compose(this.<User>bindUntilEvent(ActivityEvent.DESTROY))
-        .subscribe(new Subscriber<User>() {
+        .compose(this.<Object>bindUntilEvent(ActivityEvent.DESTROY))
+        .subscribe(new Subscriber<Object>() {
             @Override
             public void onCompleted() {
-           }
-           @Override
+                loginSuccess();
+            }
+            @Override
             public void onError(Throwable e) {
                 System.out.println(AXBErrorCode.getErrorText(LoginActivity.this, e));
             }
             @Override
-            public void onNext(User user) {
-                loginSuccess();
+            public void onNext(Object o) {
             }
         });
 ```
@@ -79,23 +64,23 @@ AXBSDK.getInstance()
 ```
 AXBSDK.getInstance().logout(this);
 ```
-##### 4.获取已登录用户
+##### 4.检查是否已经登录
 ```
 AXBSDK.getInstance()
-        .getCurrUser()
+        .isLogin()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .compose(this.<User>bindUntilEvent(ActivityEvent.DESTROY))
-        .subscribe(new Subscriber<User>() {
+        .compose(this.<Object>bindUntilEvent(ActivityEvent.DESTROY))
+        .subscribe(new Subscriber<Object>() {
             @Override
             public void onCompleted() {
+                loginSuccess();
             }
             @Override
             public void onError(Throwable e) {
             }
             @Override
-            public void onNext(User user) {
-                loginSuccess();
+            public void onNext(Object o) {
             }
         });
 ```

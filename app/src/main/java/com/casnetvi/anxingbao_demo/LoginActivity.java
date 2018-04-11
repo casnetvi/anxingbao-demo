@@ -41,24 +41,22 @@ public class LoginActivity extends RxAppCompatActivity {
      */
     private void checkIsLogin() {
         AXBSDK.getInstance()
-                .getCurrUser()
+                .isLogin()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(this.<User>bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new Subscriber<User>() {
+                .compose(this.<Object>bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new Subscriber<Object>() {
                     @Override
                     public void onCompleted() {
-
+                        loginSuccess();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
                     }
 
                     @Override
-                    public void onNext(User user) {
-                        loginSuccess();
+                    public void onNext(Object o) {
                     }
                 });
     }
@@ -74,36 +72,33 @@ public class LoginActivity extends RxAppCompatActivity {
                 .login(username, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(this.<User>bindUntilEvent(ActivityEvent.DESTROY))
+                .compose(this.<Object>bindUntilEvent(ActivityEvent.DESTROY))
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
-                        // show loading
                         findViewById(R.id.progress).setVisibility(View.VISIBLE);
                     }
                 })
                 .doOnUnsubscribe(new Action0() {
                     @Override
                     public void call() {
-                        // hide loading
                         findViewById(R.id.progress).setVisibility(View.GONE);
                     }
                 })
-                .subscribe(new Subscriber<User>() {
+                .subscribe(new Subscriber<Object>() {
                     @Override
                     public void onCompleted() {
-
+                        loginSuccess();
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         System.out.println(AXBErrorCode.getErrorText(LoginActivity.this, e));
-//                        Toast.makeText(LoginActivity.this, AXBErrorCode.getErrorText(LoginActivity.this, e), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, AXBErrorCode.getErrorText(LoginActivity.this, e), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
-                    public void onNext(User user) {
-                        loginSuccess();
+                    public void onNext(Object o) {
                     }
                 });
     }
