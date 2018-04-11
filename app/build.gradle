@@ -16,32 +16,39 @@ android {
 
     //axb sdk need  :steps4
     dataBinding {
-        enabled true
-    }
-
-    signingConfigs {
-        config_release {
-            keyAlias 'test'
-            keyPassword 'test123'
-            storePassword 'test123'
-            storeFile file('test.jks')
-        }
-
-        config_debug {
-            keyAlias 'test'
-            keyPassword 'test123'
-            storePassword 'test123'
-            storeFile file('test.jks')
-        }
+        enabled = true
     }
 
     buildTypes {
         release {
-            signingConfig signingConfigs.config_release
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+//    signingConfigs {
+//        config_release {
+//            keyAlias 'test'
+//            keyPassword 'test123'
+//            storePassword 'test123'
+//            storeFile file('test.jks')
+//        }
+//
+//        config_debug {
+//            keyAlias 'test'
+//            keyPassword 'test123'
+//            storePassword 'test123'
+//            storeFile file('test.jks')
+//        }
+//    }
+//
+//    buildTypes {
+//        release {
+//            signingConfig signingConfigs.config_release
+//            minifyEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//        }
+//    }
 }
 
 dependencies {
@@ -53,5 +60,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     //axb sdk need  :steps2
-    implementation 'com.github.casnetvi:anxingbao:0.1.1'
+    implementation 'com.github.casnetvi:anxingbao:0.1.3'
 }
