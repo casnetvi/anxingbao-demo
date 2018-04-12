@@ -1,6 +1,6 @@
 ## 配置
 ##### 1：在项目顶层的 build.gradle 添加
-```java
+```gradlle
 allprojects {
     repositories {
         maven { url 'https://jitpack.io' }
@@ -9,7 +9,7 @@ allprojects {
 ```
 
 ##### 2：在App Module中的 build.gradle 添加
-```java
+```gradlle
 android {
     defaultConfig {
         multiDexEnabled true
