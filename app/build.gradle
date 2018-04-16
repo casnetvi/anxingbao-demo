@@ -60,5 +60,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     //axb sdk need  :steps2
-    implementation 'com.github.casnetvi:anxingbao:0.1.4'
+    implementation 'com.github.casnetvi:anxingbao:0.1.5'
 }

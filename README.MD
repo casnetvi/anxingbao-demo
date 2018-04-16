@@ -1,6 +1,6 @@
 ## 配置
 ##### 1：在项目顶层的 build.gradle 添加
-```gradlle
+```java
 allprojects {
     repositories {
         maven { url 'https://jitpack.io' }
@@ -9,7 +9,7 @@ allprojects {
 ```
 
 ##### 2：在App Module中的 build.gradle 添加
-```gradlle
+```java
 android {
     defaultConfig {
         multiDexEnabled true
@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.casnetvi:anxingbao:0.1.4'
+    implementation 'com.github.casnetvi:anxingbao:0.1.5'
 }
 ```
 ---
