@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.casnetvi:anxingbao:0.1.6'
+    implementation 'com.github.casnetvi:anxingbao:0.1.7'
 }
 ```
 ---
