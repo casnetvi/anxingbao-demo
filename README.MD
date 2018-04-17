@@ -101,3 +101,43 @@ public class MainActivity extends RxAppCompatActivity {
 ```java
 AXBSDK.getInstance().goToBindDeviceActivity(this);
 ```
+##### 7.获取设备列表
+```java
+AXBSDK.getInstance()
+        .getDeviceList()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .compose(this.<List<AXBDevice>>bindUntilEvent(ActivityEvent.DESTROY))
+        .subscribe(new Subscriber<List<AXBDevice>>() {
+            @Override
+            public void onCompleted() {
+            }
+            @Override
+            public void onError(Throwable e) {
+            }
+            @Override
+            public void onNext(List<AXBDevice> devices) {
+                Toast.makeText(MainActivity.this, "共有：" + devices.size() +"个设备", Toast.LENGTH_SHORT).show();
+            }
+        });
+```
+
+```java
+public class AXBDevice {
+    private String deviceId;//设备id,imei
+    private String deviceSn;//设备序列号
+    private String phone;
+
+    private String realName;//设备使用者真实姓名
+    private String nikeName;//设备使用者昵称
+    private String image;//设备使用者头像
+    private int battery;//剩余电量
+    private boolean online;//是否在线
+    private int step;//今天步数
+
+    private String lastLocationAddress;//最后定位 位置
+    private double lastLocationLat;//最后定位 纬度
+    private double lastLocationLng;//最后定位 经度
+    private long lastLocationTime;//最后定位 时间
+}
+```
