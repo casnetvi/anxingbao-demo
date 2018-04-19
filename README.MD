@@ -29,8 +29,8 @@ dependencies {
 ```java
 AXBSDK.getInstance().init(this, "your_api_key");
 ```
-##### 2.初始化高德地图SDK Api key（在设置电子围栏使，使用到geo）
-```
+##### 2.初始化高德地图SDK Api key（在设置电子围栏时，使用到geo）
+```xml
 <meta-data
     android:name="com.amap.api.v2.apikey"
     android:value="你的高德地图api_key"/>
