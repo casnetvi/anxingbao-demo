@@ -25,9 +25,19 @@ dependencies {
 ```
 ---
 ## 初始化
+##### 1.初始化安行宝SDK Api key
 ```java
 AXBSDK.getInstance().init(this, "your_api_key");
 ```
+##### 2.初始化高德地图SDK Api key（在设置电子围栏使，使用到geo）
+```
+<meta-data
+    android:name="com.amap.api.v2.apikey"
+    android:value="你的高德地图api_key"/>
+<service android:name="com.amap.api.location.APSService" />
+```
+
+###### 获取高德地图api key请参考[高德地图开发者官网](http://lbs.amap.com/api/android-sdk/guide/create-project/get-key)
 ---
 ## 使用
 ##### 1.监听登录凭证是否过期
@@ -139,5 +149,18 @@ public class AXBDevice {
     private double lastLocationLat;//最后定位 纬度
     private double lastLocationLng;//最后定位 经度
     private long lastLocationTime;//最后定位 时间
+}
+```
+##### 7.绑定设备成功回调
+调用```AXBSDK.getInstance().goToBindDeviceActivity(this);```后，设置```onActivityResult```回调即可
+```java
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (resultCode == RESULT_OK) {
+        if (requestCode == IntentIntegrator.REQUEST_CODE) {
+            Toast.makeText(this, "绑定新设备成功", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
 ```
