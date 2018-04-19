@@ -7,7 +7,9 @@ import android.widget.Toast;
 
 import com.casnetvi.app.entity.other.AXBDevice;
 import com.casnetvi.app.frg.AXBFragment;
+import com.casnetvi.app.presenter.tw.vm.VMHome;
 import com.casnetvi.app.sdk.AXBSDK;
+import com.google.zxing.integration.android.IntentIntegrator;
 import com.trello.rxlifecycle.android.ActivityEvent;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
@@ -82,5 +84,15 @@ public class MainActivity extends RxAppCompatActivity {
                         Toast.makeText(MainActivity.this, "共有：" + devices.size() +"个设备", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == IntentIntegrator.REQUEST_CODE) {
+                Toast.makeText(this, "绑定新设备成功", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
