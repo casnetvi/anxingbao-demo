@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="com.yanzhenjie:permission-1.1.2">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/permission-1.1.2.aar/1106a883f011fcd1b51262dbb7bfab41/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/permission-1.1.2.aar/1106a883f011fcd1b51262dbb7bfab41/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/permission-1.1.2.aar/092066f230b7d7c2fa666013e810298f/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/permission-1.1.2.aar/092066f230b7d7c2fa666013e810298f/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

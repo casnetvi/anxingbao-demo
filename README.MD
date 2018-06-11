@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.casnetvi:anxingbao:0.1.7'
+    implementation 'com.github.casnetvi:anxingbao:0.3.1'
 }
 ```
 ---
@@ -96,16 +96,7 @@ AXBSDK.getInstance()
 ```
 ##### 5.嵌套安行宝列表
 ```java
-//须继承自 RxAppCompatActivity
-public class MainActivity extends RxAppCompatActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        getSupportFragmentManager().beginTransaction().add(R.id.container, new AXBFragment()).commit();
-    }
-}
+getSupportFragmentManager().beginTransaction().add(R.id.container, new AXBFragment()).commit();
 ```
 ##### 6.跳转进入绑定安行宝界面（扫描二维码）
 ```java

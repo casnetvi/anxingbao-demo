@@ -2,16 +2,14 @@ package com.casnetvi.anxingbao_demo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
 import com.casnetvi.app.entity.other.AXBDevice;
 import com.casnetvi.app.frg.AXBFragment;
-import com.casnetvi.app.presenter.tw.vm.VMHome;
 import com.casnetvi.app.sdk.AXBSDK;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.trello.rxlifecycle.android.ActivityEvent;
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import java.util.List;
 
@@ -19,7 +17,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends RxAppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +65,7 @@ public class MainActivity extends RxAppCompatActivity {
                 .getDeviceList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(this.<List<AXBDevice>>bindUntilEvent(ActivityEvent.DESTROY))
+//                .compose(this.<List<AXBDevice>>bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new Subscriber<List<AXBDevice>>() {
                     @Override
                     public void onCompleted() {
