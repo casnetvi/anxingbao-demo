@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.casnetvi:anxingbao:0.3.1'
+    implementation 'com.github.casnetvi:anxingbao:0.4.0'
 }
 ```
 ---
@@ -96,7 +96,19 @@ AXBSDK.getInstance()
 ```
 ##### 5.嵌套安行宝列表
 ```java
-getSupportFragmentManager().beginTransaction().add(R.id.container, new AXBFragment()).commit();
+AXBFragment fragment = new AXBFragment();
+//callback == null，点击查看体征按钮，按sdk的逻辑跳转页面
+//callback != null，点击查看体征按钮，回调事件
+fragment.setOnSignsCallback(new AXBFragment.OnSignsCallback() {
+    @Override
+    public void onDeviceClick(String s, String s1) {
+        System.out.println("点击查看体征按钮");
+        System.out.println("imei : " + s);
+        System.out.println("sn : " + s1);
+    }
+});
+getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).commit();
+
 ```
 ##### 6.跳转进入绑定安行宝界面（扫描二维码）
 ```java
@@ -127,7 +139,15 @@ AXBSDK.getInstance()
 public class AXBDevice {
     private String deviceId;//设备id,imei
     private String deviceSn;//设备序列号
-    private String phone;
+    private String phone;//手机号码
+    private String idCard;//身份证
+
+    private String contact1Name;//亲情号码1
+    private String contact1Phone;;
+    private String contact2Name;;//亲情号码2
+    private String contact2Phone;;
+    private String contact3Name;;//亲情号码3
+    private String contact3Phone;;
 
     private String realName;//设备使用者真实姓名
     private String nikeName;//设备使用者昵称
@@ -140,18 +160,45 @@ public class AXBDevice {
     private double lastLocationLat;//最后定位 纬度
     private double lastLocationLng;//最后定位 经度
     private long lastLocationTime;//最后定位 时间
+
 }
 ```
-##### 7.绑定设备成功回调
+##### 7.绑定、解绑设备回调
 调用```AXBSDK.getInstance().goToBindDeviceActivity(this);```后，设置```onActivityResult```回调即可
 ```java
 @Override
 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    if (resultCode == RESULT_OK) {
+    if (resultCode == RESULT_OK && data != null) {
         if (requestCode == IntentIntegrator.REQUEST_CODE) {
-            Toast.makeText(this, "绑定新设备成功", Toast.LENGTH_SHORT).show();
+            //扫码或输入SN绑定设备后的回调，点击【解绑设备】则isUnbind为true
+            boolean isUnbind = data.getBooleanExtra("isUnbind", false);
+            String imei = data.getStringExtra("imei");
+            String sn = data.getStringExtra("sn");
+            String phone = data.getStringExtra("phone");
+            if (isUnbind) {
+                System.out.println("绑定设备");
+            } else {
+                System.out.println("解除绑定");
+            }
+            System.out.println(imei);
+            System.out.println(sn);
+            System.out.println(phone);
+        } else if (requestCode == AXBSDK.REQUEST_EDIT_DEVICE) {
+            //点击列表项进入详细页面编辑信息后的回调，点击【解绑设备】则isUnbind为true
+            boolean isUnbind = data.getBooleanExtra("isUnbind", false);
+            if (isUnbind) {
+                String imei = data.getStringExtra("imei");
+                String sn = data.getStringExtra("sn");
+                String phone = data.getStringExtra("phone");
+
+                System.out.println("解除绑定");
+                System.out.println(imei);
+                System.out.println(sn);
+                System.out.println(phone);
+            }
         }
+
     }
 }
 ```

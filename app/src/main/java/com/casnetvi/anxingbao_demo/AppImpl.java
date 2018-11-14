@@ -13,7 +13,8 @@ public class AppImpl extends Application {
     public void onCreate() {
         super.onCreate();
 
-        AXBSDK.getInstance().init(this, "your_api_key");
+//        AXBSDK.getInstance().init(this, "your_api_key");
+        AXBSDK.getInstance().init(this, "bb");
 
         //监听登录凭证是否过期
         AXBSDK.getInstance().setCallback(new AXBSDK.Callback() {

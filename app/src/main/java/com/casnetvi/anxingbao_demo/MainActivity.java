@@ -25,7 +25,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         System.out.println();
 
-        getSupportFragmentManager().beginTransaction().add(R.id.container, new AXBFragment()).commit();
+        AXBFragment fragment = new AXBFragment();
+//        callback == null，点击查看体征按钮，按sdk的逻辑跳转页面
+//        callback != null，点击查看体征按钮，回调事件
+        fragment.setOnSignsCallback(new AXBFragment.OnSignsCallback() {
+            @Override
+            public void onDeviceClick(String s, String s1) {
+                System.out.println("点击查看体征按钮");
+                System.out.println("imei : " + s);
+                System.out.println("sn : " + s1);
+            }
+        });
+        getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).commit();
 
 
         findViewById(R.id.btnLogout).setOnClickListener(new View.OnClickListener() {
@@ -79,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(List<AXBDevice> devices) {
-                        Toast.makeText(MainActivity.this, "共有：" + devices.size() +"个设备", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "共有：" + devices.size() + "个设备", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -87,10 +98,36 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK && data != null) {
             if (requestCode == IntentIntegrator.REQUEST_CODE) {
-                Toast.makeText(this, "绑定新设备成功", Toast.LENGTH_SHORT).show();
+                //扫码或输入SN绑定设备后的回调，点击【解绑设备】则isUnbind为true
+                boolean isUnbind = data.getBooleanExtra("isUnbind", false);
+                String imei = data.getStringExtra("imei");
+                String sn = data.getStringExtra("sn");
+                String phone = data.getStringExtra("phone");
+                if (isUnbind) {
+                    System.out.println("绑定设备");
+                } else {
+                    System.out.println("解除绑定");
+                }
+                System.out.println(imei);
+                System.out.println(sn);
+                System.out.println(phone);
+            } else if (requestCode == AXBSDK.REQUEST_EDIT_DEVICE) {
+                //点击列表项进入详细页面编辑信息后的回调，点击【解绑设备】则isUnbind为true
+                boolean isUnbind = data.getBooleanExtra("isUnbind", false);
+                if (isUnbind) {
+                    String imei = data.getStringExtra("imei");
+                    String sn = data.getStringExtra("sn");
+                    String phone = data.getStringExtra("phone");
+
+                    System.out.println("解除绑定");
+                    System.out.println(imei);
+                    System.out.println(sn);
+                    System.out.println(phone);
+                }
             }
+
         }
     }
 }
